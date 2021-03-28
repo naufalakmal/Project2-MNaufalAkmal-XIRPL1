@@ -31,6 +31,7 @@ public class DataSiswa extends javax.swing.JFrame {
         showData();
     }
     
+    
     DefaultTableModel dtm;
     public void showData(){
         String[] kolom = {"NO", "NIS", "Nama", "Kelas", "Jurusan", "Alamat"};
@@ -175,12 +176,29 @@ public class DataSiswa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    int baris;
     private void tbl_siswaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_siswaMouseClicked
         // TODO add your handling code here
+        baris = tbl_siswa.getSelectedRow();
     }//GEN-LAST:event_tbl_siswaMouseClicked
 
     private void cmdHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdHapusActionPerformed
         // TODO add your handling code here:
+        String idWhoWantToBeDelete = tbl_siswa.getValueAt(baris,0).toString();
+        try {
+            Statement stmt = koneksi.createStatement();
+            String query = "DELETE FROM t_siswa WHERE nis = '"+idWhoWantToBeDelete+";";
+            int berhasil = stmt.executeUpdate(query);
+            if (berhasil == 1) {
+                JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+                dtm.getDataVector().removeAllElements();
+                showData();
+            }else {
+                JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_cmdHapusActionPerformed
 
     private void cmdEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEditActionPerformed
@@ -189,8 +207,11 @@ public class DataSiswa extends javax.swing.JFrame {
 
     private void cmdTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTambahActionPerformed
         // TODO add your handling code here:
+        ManageData tambahData = new ManageData(this,true);
+        tambahData.setVisible(true);
     }//GEN-LAST:event_cmdTambahActionPerformed
 
+    
     private void cmdRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRefreshActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmdRefreshActionPerformed
