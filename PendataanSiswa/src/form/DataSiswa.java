@@ -187,7 +187,7 @@ public class DataSiswa extends javax.swing.JFrame {
         String idWhoWantToBeDelete = tbl_siswa.getValueAt(baris,0).toString();
         try {
             Statement stmt = koneksi.createStatement();
-            String query = "DELETE FROM t_siswa WHERE nis = '"+idWhoWantToBeDelete+";";
+            String query = "DELETE FROM t_siswa WHERE nis = '"+idWhoWantToBeDelete+"'";
             int berhasil = stmt.executeUpdate(query);
             if (berhasil == 1) {
                 JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
@@ -203,17 +203,21 @@ public class DataSiswa extends javax.swing.JFrame {
 
     private void cmdEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdEditActionPerformed
         // TODO add your handling code here:
+        String nis = tbl_siswa.getValueAt(baris, 1).toString();
+        ManageData tambahData = new ManageData(this,true,"Edit",nis);
+        tambahData.setVisible(true);
     }//GEN-LAST:event_cmdEditActionPerformed
 
     private void cmdTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdTambahActionPerformed
         // TODO add your handling code here:
-        ManageData tambahData = new ManageData(this,true);
+        ManageData tambahData = new ManageData(this,true, "Tambah", "");
         tambahData.setVisible(true);
     }//GEN-LAST:event_cmdTambahActionPerformed
 
     
     private void cmdRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRefreshActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_cmdRefreshActionPerformed
 
     /**
